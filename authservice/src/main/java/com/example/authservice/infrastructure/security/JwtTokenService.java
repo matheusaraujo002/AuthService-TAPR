@@ -3,7 +3,6 @@ package com.example.authservice.infrastructure.security;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.example.authservice.application.port.TokenService;
-import com.example.authservice.application.token.RefreshTokenService;
 import com.example.authservice.domain.user.User;
 import com.example.authservice.infrastructure.config.JwtProperties;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +16,6 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class JwtTokenService implements TokenService {
     private final JwtProperties props;
-    private final RefreshTokenService refreshTokenService;
 
     @Override
     public TokenPair issue(User user) {
@@ -41,7 +39,6 @@ public class JwtTokenService implements TokenService {
                 .withClaim("level", user.getRole().getValue().getLevel())
                 .sign(alg);
 
-        RefreshTokenService.RotationResult refresh = refreshTokenService.issue(user);
-        return new TokenPair(access, refresh.refreshToken(), props.getAccessTtlSeconds());
+        return new TokenPair(access, "", props.getAccessTtlSeconds());
     }
 }

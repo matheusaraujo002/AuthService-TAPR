@@ -14,5 +14,5 @@ public class JwtProperties {
     private String issuer = "auth-service";
     private String audience = "pizza app";
     private long accessTtlSeconds = 900;
-    private long refreshTtlSeconds = 2_592_000;
+    private long refresTtlSeconds = 2_592_000;
 }

@@ -25,12 +25,12 @@ public class PasswordLoginHandler {
         Optional<User> userOpt = userRepository.findByEmail(email.getValue());
 
         if (userOpt.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Credenciais invalidas");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Credenciais estão invalidas");
         }
 
         User user = userOpt.get();
         if (!passwordHasher.matches(rawPassword, user.getPassword())) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Credenciais invalidas");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Credenciais estão invalidas");
         }
 
         TokenService.TokenPair pair = tokenService.issue(user);
